@@ -1,296 +1,351 @@
-
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <title>Debate: El Futuro de la IA</title>
+  <meta charset="UTF-8">
+  <title>NeuraNet | Debate sobre Inteligencia Artificial</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <!-- ====== ESTILOS ====== -->
+  <!-- =======================
+       ESTILOS CSS
+  ======================== -->
   <style>
     :root {
-      --bg: #0b0f1a;
-      --card: rgba(255,255,255,0.08);
-      --border: rgba(255,255,255,0.15);
-      --text: #e8eaf0;
-      --muted: #a0a4b8;
-      --neon: #00e5ff;
-      --violet: #8f5cff;
-      --radius: 16px;
-      --blur: blur(12px);
+      --primary: #4f46e5;
+      --secondary: #6366f1;
+      --bg: #f4f6fb;
+      --text: #1f2937;
+      --border: #e5e7eb;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: "Segoe UI", system-ui, sans-serif;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     }
 
     body {
-      background: radial-gradient(circle at top, #141a33, var(--bg));
+      background: var(--bg);
       color: var(--text);
-      min-height: 100vh;
     }
 
+    /* =======================
+       HEADER / NAVBAR
+    ======================== */
     header {
+      background: white;
+      border-bottom: 1px solid var(--border);
+      padding: 12px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       position: sticky;
       top: 0;
       z-index: 10;
-      backdrop-filter: var(--blur);
-      background: rgba(10,15,30,0.75);
-      border-bottom: 1px solid var(--border);
-      padding: 16px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
     }
 
     header h1 {
-      font-size: 1.4rem;
-      background: linear-gradient(90deg, var(--neon), var(--violet));
-      -webkit-background-clip: text;
-      color: transparent;
+      font-size: 20px;
+      color: var(--primary);
     }
 
-    main {
-      max-width: 900px;
-      margin: 32px auto;
-      padding: 0 16px;
-      display: grid;
-      gap: 24px;
+    .search {
+      flex: 1;
+      margin: 0 20px;
     }
 
-    .card {
-      background: var(--card);
+    .search input {
+      width: 100%;
+      padding: 8px 12px;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 20px;
-      backdrop-filter: var(--blur);
+      border-radius: 6px;
     }
 
-    /* ===== PERFIL ===== */
-    .profile {
+    .nav-icons {
       display: flex;
-      align-items: center;
-      gap: 16px;
+      gap: 15px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    /* =======================
+       LAYOUT GENERAL
+    ======================== */
+    .container {
+      max-width: 1100px;
+      margin: 30px auto;
+      display: grid;
+      grid-template-columns: 300px 1fr;
+      gap: 30px;
+      padding: 0 15px;
+    }
+
+    @media (max-width: 900px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    /* =======================
+       PERFIL
+    ======================== */
+    .profile {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
     }
 
     .profile img {
-      width: 64px;
-      height: 64px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       object-fit: cover;
-      border: 2px solid var(--neon);
+      margin-bottom: 10px;
     }
 
-    .profile input {
-      background: transparent;
+    .profile h2 {
+      font-size: 18px;
+    }
+
+    .profile p {
+      font-size: 14px;
+      color: #6b7280;
+      margin: 8px 0;
+    }
+
+    .profile button {
+      margin-top: 10px;
+      padding: 8px 14px;
       border: none;
-      border-bottom: 1px solid var(--border);
-      color: var(--text);
-      padding: 6px;
-      width: 100%;
-    }
-
-    /* ===== NUEVO POST ===== */
-    textarea {
-      width: 100%;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 12px;
-      color: var(--text);
-      resize: none;
-      min-height: 80px;
-    }
-
-    input[type="file"] {
-      color: var(--muted);
-    }
-
-    button {
-      background: linear-gradient(135deg, var(--neon), var(--violet));
-      border: none;
-      border-radius: 12px;
-      padding: 10px 18px;
-      color: #000;
-      font-weight: 600;
+      background: var(--primary);
+      color: white;
+      border-radius: 6px;
       cursor: pointer;
-      transition: transform .2s, opacity .2s;
     }
 
-    button:hover {
-      transform: scale(1.05);
-      opacity: .9;
-    }
-
-    /* ===== FEED ===== */
-    .post {
-      display: grid;
-      gap: 12px;
-    }
-
-    .post img.post-img {
-      width: 100%;
-      border-radius: 12px;
+    /* =======================
+       CREAR POST
+    ======================== */
+    .create-post {
+      background: white;
       border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 25px;
+    }
+
+    .create-post textarea {
+      width: 100%;
+      min-height: 80px;
+      resize: none;
+      padding: 10px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      margin-bottom: 10px;
+    }
+
+    .create-post input[type="file"] {
+      margin-bottom: 10px;
+    }
+
+    .create-post button {
+      background: var(--secondary);
+      border: none;
+      padding: 8px 16px;
+      color: white;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    /* =======================
+       FEED / POST
+    ======================== */
+    .post {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      margin-bottom: 25px;
+      overflow: hidden;
+    }
+
+    .post-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 15px;
+    }
+
+    .post-header img {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+    }
+
+    .post img.post-image {
+      width: 100%;
+      max-height: 350px;
+      object-fit: cover;
+    }
+
+    .post-content {
+      padding: 15px;
+    }
+
+    .post-content p {
+      margin-bottom: 10px;
+    }
+
+    .post-date {
+      font-size: 12px;
+      color: #6b7280;
     }
 
     .post-actions {
       display: flex;
-      gap: 16px;
-      font-size: .9rem;
-      color: var(--muted);
-    }
-
-    .post-actions span {
+      gap: 20px;
+      padding: 10px 15px;
+      border-top: 1px solid var(--border);
       cursor: pointer;
-      user-select: none;
     }
 
     .comments {
-      margin-top: 8px;
-      display: grid;
-      gap: 6px;
+      padding: 15px;
+      border-top: 1px solid var(--border);
+    }
+
+    .comments input {
+      width: 100%;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid var(--border);
     }
 
     .comment {
-      font-size: .85rem;
-      color: var(--muted);
-      border-left: 2px solid var(--neon);
-      padding-left: 8px;
-    }
-
-    .comment-input {
-      display: flex;
-      gap: 8px;
-      margin-top: 6px;
-    }
-
-    .comment-input input {
-      flex: 1;
-      background: transparent;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 6px;
-      color: var(--text);
-    }
-
-    @media (max-width:600px){
-      header h1 { font-size: 1.1rem; }
+      margin-top: 8px;
+      font-size: 14px;
     }
   </style>
 </head>
 
 <body>
 
-<header>
-  <h1>Debate: El Futuro de la IA</h1>
-</header>
-
-<main>
-
-  <!-- PERFIL -->
-  <div class="card profile">
-    <img id="avatar" src="https://i.pravatar.cc/150?img=12">
-    <div style="flex:1">
-      <input id="username" placeholder="Tu nombre" />
-      <input id="bio" placeholder="Bio corta sobre tu visión de la IA" />
+  <!-- =======================
+       HEADER
+  ======================== -->
+  <header>
+    <h1>NeuraNet</h1>
+    <div class="search">
+      <input type="text" placeholder="Buscar debates sobre IA...">
     </div>
-  </div>
+    <div class="nav-icons">
+      🏠 👤 ➕
+    </div>
+  </header>
 
-  <!-- NUEVA PUBLICACIÓN -->
-  <div class="card">
-    <textarea id="postText" placeholder="¿Qué pensás sobre el futuro de la IA y sus miedos reales?"></textarea>
-    <input type="file" id="postImage" accept="image/*">
-    <br><br>
-    <button onclick="createPost()">Publicar</button>
-  </div>
+  <!-- =======================
+       CONTENIDO
+  ======================== -->
+  <main class="container">
 
-  <!-- FEED -->
-  <div id="feed"></div>
+    <!-- PERFIL -->
+    <aside class="profile">
+      <img src="https://i.imgur.com/1X5QH6y.png" alt="perfil">
+      <h2>Usuario IA</h2>
+      <p>Explorando el impacto de la Inteligencia Artificial en la sociedad.</p>
+      <p><strong>Publicaciones:</strong> <span id="postCount">1</span></p>
+      <button>Seguir</button>
+    </aside>
 
-</main>
+    <!-- FEED -->
+    <section>
 
-<!-- ====== JAVASCRIPT ====== -->
-<script>
-let posts = JSON.parse(localStorage.getItem("posts")) || [];
-
-function savePosts() {
-  localStorage.setItem("posts", JSON.stringify(posts));
-}
-
-function createPost() {
-  const text = postText.value.trim();
-  const imageFile = postImage.files[0];
-  if (!text && !imageFile) return;
-
-  const reader = new FileReader();
-  reader.onload = () => {
-    posts.unshift({
-      id: Date.now(),
-      user: username.value || "Usuario IA",
-      bio: bio.value,
-      avatar: avatar.src,
-      text,
-      image: reader.result || null,
-      likes: 0,
-      comments: []
-    });
-    savePosts();
-    renderFeed();
-    postText.value = "";
-    postImage.value = "";
-  };
-
-  if (imageFile) reader.readAsDataURL(imageFile);
-  else reader.onload();
-}
-
-function renderFeed() {
-  feed.innerHTML = "";
-  posts.forEach(post => {
-    const div = document.createElement("div");
-    div.className = "card post";
-
-    div.innerHTML = `
-      <strong>${post.user}</strong>
-      <p>${post.text}</p>
-      ${post.image ? `<img class="post-img" src="${post.image}">` : ""}
-      <div class="post-actions">
-        <span onclick="likePost(${post.id})">❤️ ${post.likes}</span>
-        <span>💬 ${post.comments.length}</span>
+      <!-- CREAR POST -->
+      <div class="create-post">
+        <textarea id="postText" placeholder="¿Qué opinás sobre el futuro de la IA?"></textarea>
+        <input type="file" id="postImage">
+        <button onclick="crearPost()">Publicar</button>
       </div>
-      <div class="comments">
-        ${post.comments.map(c => `<div class="comment">${c}</div>`).join("")}
+
+      <!-- POSTS -->
+      <div id="feed">
+
+        <!-- POST EJEMPLO -->
+        <div class="post">
+          <div class="post-header">
+            <img src="https://i.imgur.com/1X5QH6y.png">
+            <strong>Usuario IA</strong>
+          </div>
+          <img class="post-image" src="https://i.imgur.com/YZ6Yk2K.jpg">
+          <div class="post-content">
+            <p>La IA nació como un sueño académico en los años 50. Hoy redefine el trabajo, la creatividad y la ética humana.</p>
+            <div class="post-date">Publicado hoy</div>
+          </div>
+          <div class="post-actions">
+            ❤️ Me gusta
+            💬 Comentar
+            🔁 Compartir
+          </div>
+          <div class="comments">
+            <input placeholder="Escribí un comentario...">
+          </div>
+        </div>
+
       </div>
-      <div class="comment-input">
-        <input placeholder="Comentar..." onkeydown="if(event.key==='Enter') addComment(${post.id}, this)">
-      </div>
-    `;
-    feed.appendChild(div);
-  });
-}
 
-function likePost(id) {
-  const post = posts.find(p => p.id === id);
-  post.likes++;
-  savePosts();
-  renderFeed();
-}
+    </section>
+  </main>
 
-function addComment(id, input) {
-  if (!input.value.trim()) return;
-  const post = posts.find(p => p.id === id);
-  post.comments.push(input.value);
-  input.value = "";
-  savePosts();
-  renderFeed();
-}
+  <!-- =======================
+       JAVASCRIPT
+  ======================== -->
+  <script>
+    let contador = 1;
 
-renderFeed();
-</script>
+    function crearPost() {
+      const texto = document.getElementById("postText").value;
+      const imagen = document.getElementById("postImage").files[0];
+
+      if (texto.trim() === "") return;
+
+      const reader = new FileReader();
+      reader.onload = function () {
+        const post = document.createElement("div");
+        post.className = "post";
+
+        post.innerHTML = `
+          <div class="post-header">
+            <img src="https://i.imgur.com/1X5QH6y.png">
+            <strong>Usuario IA</strong>
+          </div>
+          ${imagen ? `<img class="post-image" src="${reader.result}">` : ""}
+          <div class="post-content">
+            <p>${texto}</p>
+            <div class="post-date">Publicado ahora</div>
+          </div>
+          <div class="post-actions">
+            ❤️ Me gusta
+            💬 Comentar
+            🔁 Compartir
+          </div>
+          <div class="comments">
+            <input placeholder="Escribí un comentario...">
+          </div>
+        `;
+
+        document.getElementById("feed").prepend(post);
+        document.getElementById("postText").value = "";
+        document.getElementById("postImage").value = "";
+
+        contador++;
+        document.getElementById("postCount").innerText = contador;
+      };
+
+      if (imagen) reader.readAsDataURL(imagen);
+      else reader.onload();
+    }
+  </script>
 
 </body>
 </html>
